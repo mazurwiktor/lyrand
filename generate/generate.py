@@ -4,6 +4,7 @@ import json
 from typing import List
 
 from generators import line_per_track, line_per_track_syllables, line_per_track_rhymes
+from track import Track
 
 
 def newline2list(raw_str: str) -> List[str]:
@@ -31,7 +32,7 @@ def main():
 
     with open(path_in) as f:
         data = json.load(f)
-        tracks = [newline2list(t[2]) for t in data]
+        tracks = [Track(t[0], t[1], newline2list(t[2])) for t in data]
 
         if syllables:
             result = line_per_track_syllables(tracks, syllables)
